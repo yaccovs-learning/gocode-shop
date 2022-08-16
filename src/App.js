@@ -1,23 +1,25 @@
-import logo from './logo.svg';
-import './App.css';
+import logo from "./logo.svg";
+import "./App.css";
+import ExampleFragment from "./components/ExampleFragment";
+import ExamplePropsButton from "./components/ExamplePropsButton";
 
 function App() {
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <ExamplePropsButton
+        text="Hello button!"
+        onClickHandler={() => {
+          console.log("hello!");
+        }}
+      />
+      <ExamplePropsButton
+        text="prompt button!"
+        onClickHandler={() => {
+          prompt("hello!");
+        }}
+        stylingObject={{backgroundColor: "red"}}
+      />
+      <ExampleFragment />
     </div>
   );
 }
