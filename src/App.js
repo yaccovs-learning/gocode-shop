@@ -1,25 +1,22 @@
-import logo from "./logo.svg";
+import { useState, useEffect } from "react";
 import "./App.css";
-import ExampleFragment from "./components/ExampleFragment";
-import ExamplePropsButton from "./components/ExamplePropsButton";
+import Header from "./components/Header/Header";
+import Products from "./components/Products/Products";
 
 function App() {
+  const [listProducts, setListProducts] = useState([]);
+
+  useEffect(() => {
+    fetch("https://fakestoreapi.com/products")
+      .then((response) => response.json())
+      .then((data) => {
+        setListProducts(data);
+      });
+  }, []);
   return (
-    <div className="App">
-      <ExamplePropsButton
-        text="Hello button!"
-        onClickHandler={() => {
-          console.log("hello!");
-        }}
-      />
-      <ExamplePropsButton
-        text="prompt button!"
-        onClickHandler={() => {
-          prompt("hello!");
-        }}
-        stylingObject={{backgroundColor: "red"}}
-      />
-      <ExampleFragment />
+    <div>
+      <Header />
+      <Products listProducts={listProducts} />
     </div>
   );
 }
