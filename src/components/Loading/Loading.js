@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import Product from "../Product/Product";
-import "./Products.css";
+import "./Loading.css";
 
 const Products = ({ listProducts = [] }) => {
   const listProductsElements = listProducts.map((item) => (

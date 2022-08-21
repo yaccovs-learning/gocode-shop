@@ -6,12 +6,13 @@ import Products from "./components/Products/Products";
 function App() {
   const [listProducts, setListProducts] = useState([]);
 
+  const getProductsFromApi = async () => {
+    const response = await fetch("https://fakestoreapi.com/products");
+    const products = await response.json();
+    setListProducts(products);
+  };
   useEffect(() => {
-    fetch("https://fakestoreapi.com/products")
-      .then((response) => response.json())
-      .then((data) => {
-        setListProducts(data);
-      });
+    getProductsFromApi();
   }, []);
   return (
     <div>
