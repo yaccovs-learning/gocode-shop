@@ -1,13 +1,4 @@
-.product-filter {
-    display: flex;
-    padding: 30px 0;
-  }
-  
-  .sort {
-    display: flex;
-    align-self: flex-end;
-  }
-  
+
   .collection-sort {
     display: flex;
     flex-direction: column;
