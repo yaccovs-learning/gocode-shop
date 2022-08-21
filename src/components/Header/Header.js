@@ -3,14 +3,15 @@ import useClock from '../../customHooks/useClock'
 import {FilterBy, SortBy} from '../FilterSortBy/FilterSortBy'
 import './Header.css'
 
-const Header = () => {
+const Header = ({categories, setSelectCat}) => {
   const clock = useClock();
+
   return (
     <nav className="product-filter">
-      <h1>Jackets</h1>
+      <h1>MyStore</h1>
       <h2>{clock}</h2>
       <div className="sort">
-        <FilterBy />
+        <FilterBy categories={categories} setSelectCat={setSelectCat} />
         <SortBy />
       </div>
     </nav>

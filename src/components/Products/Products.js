@@ -3,8 +3,8 @@ import Product from "../Product/Product";
 import Loading from "../Loading/Loading";
 import "./Products.css";
 
-const Products = ({ listProducts = [] }) => {
-  const listProductsElements = listProducts.map((item) => (
+const Products = ({ listProducts = [] ,selectCat}) => {
+  const listProductsElements = (selectCat?listProducts.filter(prd => prd.category === selectCat):listProducts).map((item) => (
     <Product key={item.id} info={item} />
   ));
 

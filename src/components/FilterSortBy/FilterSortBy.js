@@ -1,26 +1,18 @@
 import React from "react";
 import './FilterSortBy.css'
 
-export const FilterBy = () => {
-  const options = [
-    "2016",
-    "jacket",
-    "Jackets",
-    "layers",
-    "Obermeyer",
-    "Roxy",
-    "womens",
-  ];
+export const FilterBy = ({categories, setSelectCat}) => {
+  const options = categories;
   const optionsElements = options.map((txtOpt, i) => (
-    <option key={txtOpt} value="/">
+    <option key={txtOpt}  value={txtOpt}>
       {txtOpt}
     </option>
   ));
   return (
     <div className="collection-sort">
       <label>Filter by:</label>
-      <select>
-        <option value="/">All Jackets</option>
+      <select onChange={(e) => {setSelectCat(e.target.value)}} >
+        <option value="">All Products</option>
         {optionsElements}
       </select>
     </div>
@@ -38,7 +30,7 @@ export const SortBy = () => {
       "Date, old to new",
     ];
     const optionsElements = options.map((txtOpt, i) => (
-      <option key={txtOpt} value="/">
+      <option key={txtOpt} value={txtOpt}>
         {txtOpt}
       </option>
     ));
