@@ -1,17 +1,21 @@
 import React from "react";
-import './FilterSortBy.css'
+import "./FilterSortBy.css";
 
-export const FilterBy = ({categories, setSelectCat}) => {
+export const FilterBy = ({ categories, setSelectCat }) => {
   const options = categories;
   const optionsElements = options.map((txtOpt, i) => (
-    <option key={txtOpt}  value={txtOpt}>
+    <option key={txtOpt} value={txtOpt}>
       {txtOpt}
     </option>
   ));
   return (
     <div className="collection-sort">
       <label>Filter by:</label>
-      <select onChange={(e) => {setSelectCat(e.target.value)}} >
+      <select
+        onChange={(e) => {
+          setSelectCat(e.target.value);
+        }}
+      >
         <option value="">All Products</option>
         {optionsElements}
       </select>
@@ -19,29 +23,53 @@ export const FilterBy = ({categories, setSelectCat}) => {
   );
 };
 
-export const SortBy = () => {
+export const SortBy = ({ setSortObj }) => {
   const options = [
-      "Best Selling",
-      "Alphabetically, A-Z",
-      "Alphabetically, Z-A",
-      "Price, low to high",
-      "Price, high to low",
-      "Date, new to old",
-      "Date, old to new",
-    ];
-    const optionsElements = options.map((txtOpt, i) => (
-      <option key={txtOpt} value={txtOpt}>
-        {txtOpt}
-      </option>
-    ));
-  
+    {
+      name: "Best Selling",
+      func: (a, b) => {
+        return b.rating.count - a.rating.count;
+      },
+    },
+    {
+      name: "Alphabetically, A-Z",
+      func: (a, b) => a.title > b.title ? 1 : -1,
+    },
+    {
+      name: "Alphabetically, Z-A",
+      func: (a, b) => a.title > b.title ? -1 : 1,
+    },
+    {
+      name: "Price, low to high",
+      func: (a, b) => a.price - b.price,
+    },
+    {
+      name: "Price, high to low",
+      func: (a, b) => b.price - a.price,
+    },
+    { name: "Date, new to old", func: (a, b) => {} },
+    { name: "Date, old to new", func: (a, b) => {} },
+  ];
+
+  const optionsElements = options.map((sortObject, i) => {
     return (
-      <div className="collection-sort">
-        <label>Sort by:</label>
-        <select>
-          <option value="/">Featured</option>
-          {optionsElements}
-        </select>
-      </div>
+      <option key={sortObject.name} value={sortObject.name}>
+        {sortObject.name}
+      </option>
     );
-  }
+  });
+
+  return (
+    <div className="collection-sort">
+      <label>Sort by:</label>
+      <select
+        onChange={(e) => {
+          setSortObj(options.find((sort) => sort.name === e.target.value));
+        }}
+      >
+        <option value="">Featured</option>
+        {optionsElements}
+      </select>
+    </div>
+  );
+};

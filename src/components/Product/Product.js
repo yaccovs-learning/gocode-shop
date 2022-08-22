@@ -1,6 +1,7 @@
-import React from "react";
+import React, { useContext, useState, useEffect } from "react";
+import ChangeAmount from "../ChangeAmount/ChangeAmount";
 import Stars from "../Stars";
-import './Product.css'
+import "./Product.css";
 
 const Product = ({ info }) => {
   const {
@@ -9,8 +10,11 @@ const Product = ({ info }) => {
     price,
     image,
     description,
+    id,
     rating: { rate, count },
   } = info;
+
+
   return (
     <div className="product-card" title={description}>
       <div className="product-image">
@@ -22,6 +26,7 @@ const Product = ({ info }) => {
         <h5>${price}</h5>
         <Stars rate={rate} count={count} />
       </div>
+        <ChangeAmount id={id} />
     </div>
   );
 };

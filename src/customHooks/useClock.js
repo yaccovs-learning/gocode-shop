@@ -1,12 +1,16 @@
 import React, { useState, useEffect } from 'react'
 
 const useClock = () => {
-   const [clock, setClock ] = useState(new Date().toLocaleTimeString().substring(0,5))
+  const hourMinClock = () => {
+    const now = new Date()
+    return `${now.getHours().toString().padStart(2,0)}:${now.getHours().toString().padStart(2,0)}`
+  }
+   const [clock, setClock ] = useState(hourMinClock())
    useEffect(() => {
      const idInterval = setInterval( ()=> {
-        setClock(new Date().toLocaleTimeString().substring(0,5));
+        setClock(hourMinClock());
         console.log(clock);
-     }, 30000
+     }, 10000
      )
    
      return () => {
