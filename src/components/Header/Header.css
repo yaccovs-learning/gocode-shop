@@ -34,8 +34,6 @@
 }
 .sort {
   display: flex;
-  align-self: flex-end;
-
 }
 
 h1 {
