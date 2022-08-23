@@ -6,14 +6,6 @@
   
 }
 
-@media screen and (max-width: 800px) {
-
-  .sort {
-    flex-direction: column;
-    
-  }
-}
-
 @media screen and (min-height: 800px) {
   .product-filter {
     position: sticky;
@@ -31,9 +23,6 @@
 .product-filter > * {
   text-shadow: 0 0 2px white, 0 0 2px white, 0 0 2px white, 0 0 2px white,
     0 0 2px white, 0 0 10px white;
-}
-.sort {
-  display: flex;
 }
 
 h1 {

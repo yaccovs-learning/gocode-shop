@@ -1,8 +1,8 @@
 import React, { useContext, useEffect, useState } from "react";
-import CartContext from "../CartContext";
+import CartContext from "../StoreContext";
 
-const CartSum = ({ listProducts }) => {
-  const [cartProducts] = useContext(CartContext);
+const CartSum = () => {
+  const {cartProducts,listProducts} = useContext(CartContext);
   const [sumPriceProducts, setSumPriceProducts] = useState();
   useEffect(() => {
     setSumPriceProducts(

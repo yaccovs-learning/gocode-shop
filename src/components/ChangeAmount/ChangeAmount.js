@@ -1,9 +1,9 @@
 import React, { useContext, useState, useEffect } from "react";
-import CartContext from "../../CartContext";
+import StoreContext from "../../StoreContext";
 import "./ChangeAmount.css";
 
 const ChangeAmount = ({ id }) => {
-  const [cartProducts, setCartProducts] = useContext(CartContext);
+  const {cartProducts, setCartProducts} = useContext(StoreContext);
 
   const [amount, setAmount] = useState(
     cartProducts.find((prd) => prd.id === id)?.amount || 0

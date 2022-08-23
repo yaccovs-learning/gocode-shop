@@ -1,15 +1,18 @@
-import { useState, useEffect, useContext } from "react";
+import { useState, useEffect } from "react";
 import "./App.css";
-import CartContext from "./CartContext";
+import StoreContext from "./StoreContext";
 import Header from "./components/Header/Header";
-import Products from "./components/Products/Products";
 import Cart from "./components/Cart/Cart";
+import Routing from "./components/Routing";
 
 function App() {
   const [listProducts, setListProducts] = useState([]);
-  const [categories, setCategories] = useState([]);
   const [selectCat, setSelectCat] = useState("");
-  const [sortObj, setSortObj] = useState({ name: "Alphabetically, A-Z", func: (a,b) => {}, asc: 1});
+  const [sortObj, setSortObj] = useState({
+    name: "Alphabetically, A-Z",
+    func: (a, b) => {},
+    asc: 1,
+  });
 
   const getProductsFromApi = async () => {
     const response = await fetch("https://fakestoreapi.com/products");
@@ -22,35 +25,25 @@ function App() {
     getProductsFromApi();
   }, []);
 
-  useEffect(() => {
-    setCategories(
-      listProducts
-        .map((p) => p.category)
-        .filter((value, index, array) => array.indexOf(value) === index)
-    );
-  }, [listProducts]);
-
-  useEffect(() => {
-    console.log(cartProducts);
-  }, []);
   return (
-    <CartContext.Provider value={[cartProducts, setCartProducts]}>
+    <StoreContext.Provider
+      value={{
+        getProductsFromApi,
+        cartProducts,
+        setCartProducts,
+        listProducts,
+        sortObj,
+        setSortObj,
+        selectCat,
+        setSelectCat,
+      }}
+    >
       <div>
-        <Header
-          listProducts={listProducts}
-          categories={categories}
-          setSelectCat={setSelectCat}
-          sortObj={sortObj}
-          setSortObj={setSortObj}
-        />
-        <Products
-          listProducts={listProducts}
-          selectCat={selectCat}
-          sortObj={sortObj}
-        />
-        <Cart listProducts={listProducts} />
+        <Header />
+        <Routing />
+        <Cart asView={false} />
       </div>
-    </CartContext.Provider>
+    </StoreContext.Provider>
   );
 }
 

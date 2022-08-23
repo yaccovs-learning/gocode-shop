@@ -1,13 +1,14 @@
 import React, { useState, useEffect, useContext } from "react";
-import CartContext from "../../CartContext";
+import StoreContext from "../../StoreContext";
 import ChangeAmount from "../ChangeAmount/ChangeAmount";
 import CartSum from "../CartSum";
 
 import "./Cart.css";
 
-const Cart = ({ listProducts }) => {
+const Cart = ({ asView }) => {
   const [openCloseCart, setOpenCloseCart] = useState(false);
-  const [cartProducts, setCartProducts] = useContext(CartContext);
+  const { cartProducts, setCartProducts, listProducts } =
+    useContext(StoreContext);
 
   const [productLines, setProductLines] = useState([]);
 
@@ -15,38 +16,45 @@ const Cart = ({ listProducts }) => {
     setCartProducts((prev) => {
       const newArray = prev.slice();
       newArray.find((prd) => prd.id === id).amount = 0;
-      console.log(newArray)
+      console.log(newArray);
       return newArray;
     });
   };
 
   useEffect(() => {
-    setProductLines(
-      cartProducts
-        .filter((prd) => prd.amount > 0)
-        .map((prdCrt) => {
-          return {
-            ...listProducts.find((prdLst) => prdLst.id === prdCrt.id),
-            amount: prdCrt.amount,
-          };
-        })
-        .map((prd) => (
-          <div key={prd.id} className="product-cart">
-            <button onClick={() => deleteFromCart(prd.id)}>x</button>
-            <img src={prd.image} alt={prd.description} />
-            <span className="title">{prd.title}</span> 
-            <span className="price">
-              ${(prd.amount * prd.price).toFixed(2)}
-            </span>
-            <ChangeAmount id={prd.id} />
-          </div>
-        ))
-    );
-  }, [cartProducts,listProducts]);
+    const filterCartProducts = cartProducts
+      .filter((prd) => prd.amount > 0)
+      .map((prdCrt) => {
+        return {
+          ...listProducts.find((prdLst) => prdLst.id === prdCrt.id),
+          amount: prdCrt.amount,
+        };
+      });
 
-  return (
+    setProductLines(
+      filterCartProducts.map((prd) => (
+        <div key={prd.id} className="product-cart">
+          <button onClick={() => deleteFromCart(prd.id)}>x</button>
+          <img src={prd.image} alt={prd.description} />
+          <span className="title">{prd.title}</span>
+          <span className="price">${(prd.amount * prd.price).toFixed(2)}</span>
+          <ChangeAmount id={prd.id} />
+        </div>
+      ))
+    );
+  }, [cartProducts, listProducts]);
+
+  return asView ? (
+    <div className="cart side">{productLines} <CartSum /></div>
+   
+    ) : (
     <>
-      {openCloseCart && <><div className="cart">{productLines}</div><CartSum listProducts={listProducts}/></>}
+      {openCloseCart && (
+        <>
+          <div className="cart side">{productLines}</div>
+          <CartSum listProducts={listProducts} />
+        </>
+      )}
       <div
         className="btn-open-cart"
         onClick={() => setOpenCloseCart((prev) => !prev)}

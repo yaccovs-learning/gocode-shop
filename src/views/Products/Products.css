@@ -1,0 +1,22 @@
+.products {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+
+/* @media screen and (max-width: 800px) {
+
+  .sort {
+    flex-direction: column;
+    
+  }
+} */
+.sort {
+  margin: 1rem auto;
+  display: flex;
+}
+
+.sort-container {
+  display: flex;
+  justify-content: center;
+}

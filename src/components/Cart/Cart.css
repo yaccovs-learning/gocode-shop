@@ -13,7 +13,7 @@
     3px 3px 5px red, -3px 3px 5px red, 3px -3px red, -3px -3px red;
 }
 
-.cart {
+.cart.view {
   display: flex;
   flex-direction: column;
   position: fixed;
@@ -56,7 +56,7 @@
   height: 3rem;
 }
 
-.cart + .sum-cart {
+.cart.view + .sum-cart {
   position: fixed;
   bottom: 9.5rem;
   left: 10rem;
@@ -72,7 +72,7 @@
 @media screen and (max-height: 800px) and (max-width: 1000px),
 screen and (max-height: 670px),
 screen and (max-width: 800px) {
-  .cart {
+  .cart.view {
     height: 80%;
     bottom: 5rem;
     left: 1rem;
@@ -90,13 +90,13 @@ screen and (max-width: 800px) {
     left: 2rem;
   }
 
-  .cart + .sum-cart {
+  .cart.view + .sum-cart {
     position: fixed;
     bottom: 3rem;
     right: 2rem;
   }
 
-  .cart .change-amount {
+  .cart.view .change-amount {
     flex: 0 0 2rem;
     width: 0.5rem;
     height: 5rem;
