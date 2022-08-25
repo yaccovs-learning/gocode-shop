@@ -3,7 +3,7 @@ import { useState, useEffect } from 'react'
 const useClock = () => {
   const hourMinClock = () => {
     const now = new Date()
-    return `${now.getHours().toString().padStart(2,0)}:${now.getHours().toString().padStart(2,0)}`
+    return `${now.getHours().toString().padStart(2,0)}:${now.getMinutes().toString().padStart(2,0)}`
   }
    const [clock, setClock ] = useState(hourMinClock())
    useEffect(() => {

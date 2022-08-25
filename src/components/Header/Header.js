@@ -1,6 +1,5 @@
 import React from "react";
 import useClock from "../../customHooks/useClock";
-import { FilterBy, SortBy } from "../FilterSortBy/FilterSortBy";
 import CartSum from "../CartSum";
 import "./Header.css";
 

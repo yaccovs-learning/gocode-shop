@@ -3,7 +3,7 @@ import "./App.css";
 import StoreContext from "./StoreContext";
 import Header from "./components/Header/Header";
 import Cart from "./components/Cart/Cart";
-import Routing from "./components/Routing";
+import Routing from "./components/Routing/Routing";
 
 function App() {
   const [listProducts, setListProducts] = useState([]);
@@ -20,6 +20,16 @@ function App() {
     setListProducts(products);
   };
 
+  const [categories, setCategories] = useState([]);
+  useEffect(() => {
+    setCategories(
+      listProducts
+        .map((p) => p.category)
+        .filter((value, index, array) => array.indexOf(value) === index)
+    );
+  }, [listProducts]);
+
+
   const [cartProducts, setCartProducts] = useState([]);
   useEffect(() => {
     getProductsFromApi();
@@ -32,6 +42,8 @@ function App() {
         cartProducts,
         setCartProducts,
         listProducts,
+        setListProducts,
+        categories,
         sortObj,
         setSortObj,
         selectCat,

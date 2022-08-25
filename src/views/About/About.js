@@ -1,10 +1,10 @@
 import React from "react";
+import './About.css'
 
 const About = () => {
   return (
-    <div>
-      <div>
-        <h1>About Store</h1>
+    <div className="about">
+        <h1 class="title">About Store</h1>
         <p>
           hello world! Lorem ipsum dolor sit amet, consectetur adipiscing elit,
           sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut
@@ -14,7 +14,6 @@ const About = () => {
           pariatur. Excepteur sint occaecat cupidatat non proident, sunt in
           culpa qui officia deserunt mollit anim id est laborum.
         </p>
-      </div>
     </div>
   );
 };

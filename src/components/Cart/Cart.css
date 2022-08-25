@@ -13,7 +13,7 @@
     3px 3px 5px red, -3px 3px 5px red, 3px -3px red, -3px -3px red;
 }
 
-.cart.view {
+.cart.side {
   display: flex;
   flex-direction: column;
   position: fixed;
@@ -48,7 +48,8 @@
 }
 .product-cart .price {
   flex: 0.3;
-  align-self: center;
+  text-align: center;
+  width: 3rem;
 }
 .product-cart img {
   /* flex: 0.5 0.5 13px; */
@@ -56,7 +57,7 @@
   height: 3rem;
 }
 
-.cart.view + .sum-cart {
+.cart.side + .sum-cart {
   position: fixed;
   bottom: 9.5rem;
   left: 10rem;
@@ -72,7 +73,7 @@
 @media screen and (max-height: 800px) and (max-width: 1000px),
 screen and (max-height: 670px),
 screen and (max-width: 800px) {
-  .cart.view {
+  .cart.side {
     height: 80%;
     bottom: 5rem;
     left: 1rem;
@@ -90,13 +91,13 @@ screen and (max-width: 800px) {
     left: 2rem;
   }
 
-  .cart.view + .sum-cart {
+  .cart.side + .sum-cart {
     position: fixed;
     bottom: 3rem;
     right: 2rem;
   }
 
-  .cart.view .change-amount {
+  .cart.side .change-amount {
     flex: 0 0 2rem;
     width: 0.5rem;
     height: 5rem;

@@ -3,10 +3,10 @@ import { Link, useParams } from "react-router-dom";
 import StoreContext from "../../StoreContext";
 import ChangeAmount from "../ChangeAmount/ChangeAmount";
 import Loading from "../Loading/Loading";
-import Stars from "../Stars";
+import Stars from "../Stars/Stars";
 import "./Product.css";
 
-const Product = ({ productId: productIdFromProp }) => {
+const Product = ({ productId: productIdFromProp, asView }) => {
   const { listProducts, getProductsFromApi } = useContext(StoreContext);
   if (!listProducts) getProductsFromApi();
 
@@ -28,6 +28,7 @@ const Product = ({ productId: productIdFromProp }) => {
           <Link to={`/product/${info.id}`}>{info.title}</Link>
         </h5>
         <h6>{info.category}</h6>
+        {asView && <div className="description">{info.description}</div>}
         <h5>${info.price}</h5>
         <Stars rate={info.rating.rate} count={info.rating.count} />
       </div>

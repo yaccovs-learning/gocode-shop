@@ -1,20 +1,12 @@
-import React, { useState, useEffect, useContext } from "react";
+import React, { useContext } from "react";
 import StoreContext from "../../StoreContext";
 import "./FilterSortBy.css";
 
 export const FilterBy = () => {
-  const { listProducts, setSelectCat } = useContext(StoreContext);
+  const { categories, setSelectCat } = useContext(StoreContext);
 
-  const [options, setOptions] = useState([]);
-  useEffect(() => {
-    setOptions(
-      listProducts
-        .map((p) => p.category)
-        .filter((value, index, array) => array.indexOf(value) === index)
-    );
-  }, [listProducts]);
 
-  const optionsElements = options.map((txtOpt, i) => (
+  const optionsElements = categories.map((txtOpt, i) => (
     <option key={txtOpt} value={txtOpt}>
       {txtOpt}
     </option>

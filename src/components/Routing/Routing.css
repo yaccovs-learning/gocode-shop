@@ -1,0 +1,25 @@
+@media screen and (min-height: 800px) {
+  .router-links {
+    position: sticky;
+  }
+}
+.router-links {
+  display: flex;
+  justify-content:center;
+  background-color: rgb(184, 184, 184);
+  top: 4rem;
+  min-height: 1.5rem;
+  margin-bottom: 1rem;
+}
+
+.router-links .links {
+    flex: 0.8 0.8 20%;
+    border: solid 3px #b8b8b8;
+    background-color: rgba(255,255,255,0.2);
+    text-align: center;
+    padding: 0.5rem;
+}
+
+.router-links .links:hover {
+    background-color: rgba(255,255,255,0.5);
+}
