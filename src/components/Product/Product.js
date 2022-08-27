@@ -27,8 +27,16 @@ const Product = ({ productId: productIdFromProp, asView }) => {
   const info = listProducts.find((prd) => prd.id === id);
 
   return listProducts.length > 0 ? (
-    <Card sx={{}} className="product-card" title={info.description}>
-      <CardActionArea className="product-card-link" component={Link} to={`/product/${info.id}`}>
+    <Card
+      sx={{ minWidth: "8em" }}
+      className="product-card"
+      title={info.description}
+    >
+      <CardActionArea
+        className="product-card-link"
+        component={Link}
+        to={`/product/${info.id}`}
+      >
         <CardMedia component="img" image={info.image} alt={info.title} />
         <CardContent className="product-card-info">
           <h5>{info.title}</h5>
