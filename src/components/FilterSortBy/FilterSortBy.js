@@ -1,10 +1,22 @@
-import React, { useContext } from "react";
+import { Slider } from "@mui/material";
+import React, { useContext, useState, useEffect } from "react";
 import StoreContext from "../../StoreContext";
 import "./FilterSortBy.css";
 
+export const FilterAndSort = () => {
+  return (
+    <div className="sort-container">
+      <div className="sort">
+        <FilterBy />
+        <SortBy />
+        <SliderPrice />
+      </div>
+    </div>
+  );
+};
+
 export const FilterBy = () => {
   const { categories, setSelectCat } = useContext(StoreContext);
-
 
   const optionsElements = categories.map((txtOpt, i) => (
     <option key={txtOpt} value={txtOpt}>
@@ -42,7 +54,7 @@ export const SortBy = () => {
     },
     {
       name: "Alphabetically, Z-A",
-      func: (a, b) => (a.title > b.title ? -1 : 1),
+      func: (b, a) => (a.title > b.title ? 1 : -1),
     },
     {
       name: "Price, low to high",
@@ -50,10 +62,10 @@ export const SortBy = () => {
     },
     {
       name: "Price, high to low",
-      func: (a, b) => b.price - a.price,
+      func: (b, a) => a.price - b.price,
     },
-    { name: "Date, new to old", func: (a, b) => {} },
-    { name: "Date, old to new", func: (a, b) => {} },
+    { name: "Date, new to old", func: (a, b) => a.id - b.id },
+    { name: "Date, old to new", func: (b, a) => a.id - b.id },
   ];
 
   const optionsElements = options.map((sortObject, i) => {
@@ -75,6 +87,55 @@ export const SortBy = () => {
         <option value="">Featured</option>
         {optionsElements}
       </select>
+    </div>
+  );
+};
+
+export const SliderPrice = () => {
+  const { listProducts, minMax } = useContext(StoreContext);
+
+  const [min, setMin] = minMax.min;
+  const [max, setMax] = minMax.max;
+  const [marks, setMarks] = useState([]);
+  const [highest, setHighest] = useState(Infinity);
+  const [lowest, setLowest] = useState(-Infinity);
+
+  useEffect(() => {
+    let tempHighest = min;
+    let tempLowest = max;
+    listProducts.forEach((product) => {
+      tempHighest = tempHighest > product.price ? product.price : tempHighest;
+      tempLowest = tempLowest < product.price ? product.price : tempLowest;
+    });
+    setMin(tempHighest);
+    setMax(tempLowest);
+    setHighest(tempHighest);
+    setLowest(tempLowest);
+    const newMarks = [
+      { value: tempHighest, label: `$${tempHighest}` },
+      { value: tempLowest, label: `$${tempLowest}` },
+    ];
+    setMarks(newMarks);
+    console.log(min, max);
+    // eslint-disable-next-line
+  }, [listProducts]);
+
+  return (
+    <div className="slider">
+      {/* <Slider defaultValue={30} step={10} marks min={10} max={110} /> */}
+      <Slider
+        min={highest}
+        max={lowest}
+        getAriaLabel={() => "Price range"}
+        value={[min, max]}
+        marks={marks}
+        onChange={(e, newValues, ...o) => {
+          setMin(newValues[0]);
+          setMax(newValues[1]);
+        }}
+        valueLabelDisplay="auto"
+        size="small"
+      />
     </div>
   );
 };

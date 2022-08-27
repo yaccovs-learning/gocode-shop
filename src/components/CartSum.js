@@ -16,7 +16,7 @@ const CartSum = () => {
         }, 0)
         .toFixed(2)
     );
-  }, [cartProducts]);
+  }, [cartProducts, listProducts]);
 
   return <div className="sum-cart">Subtotal: ${sumPriceProducts}</div>;
 };

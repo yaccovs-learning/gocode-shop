@@ -6,10 +6,12 @@
 .router-links {
   display: flex;
   justify-content:center;
+  z-index: 1;
   background-color: rgb(184, 184, 184);
   top: 4rem;
   min-height: 1.5rem;
   margin-bottom: 1rem;
+  box-shadow: black 0 1rem 2rem -0.5rem;
 }
 
 .router-links .links {

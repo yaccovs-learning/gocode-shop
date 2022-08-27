@@ -14,10 +14,22 @@ function App() {
     asc: 1,
   });
 
+  const minMax = {
+    min: useState(Infinity),
+    max: useState(-Infinity),
+  };
+
   const getProductsFromApi = async () => {
-    const response = await fetch("https://fakestoreapi.com/products");
-    const products = await response.json();
-    setListProducts(products);
+    try {
+      const response = await fetch("https://fakestoreapi.com/products");
+      const products = await response.json();
+      setListProducts(products);
+    } catch (e) {
+      const response = await fetch("https://bedecked-stone-turret.glitch.me/products");
+      const products = await response.json();
+      setListProducts(products);
+    
+    } //
   };
 
   const [categories, setCategories] = useState([]);
@@ -28,7 +40,6 @@ function App() {
         .filter((value, index, array) => array.indexOf(value) === index)
     );
   }, [listProducts]);
-
 
   const [cartProducts, setCartProducts] = useState([]);
   useEffect(() => {
@@ -48,6 +59,7 @@ function App() {
         setSortObj,
         selectCat,
         setSelectCat,
+        minMax,
       }}
     >
       <div>
