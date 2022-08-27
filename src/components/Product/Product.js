@@ -28,7 +28,7 @@ const Product = ({ productId: productIdFromProp, asView }) => {
 
   return listProducts.length > 0 ? (
     <Card sx={{}} className="product-card" title={info.description}>
-      <CardActionArea classeName="product-card-link" component={Link} to={`/product/${info.id}`}>
+      <CardActionArea className="product-card-link" component={Link} to={`/product/${info.id}`}>
         <CardMedia component="img" image={info.image} alt={info.title} />
         <CardContent className="product-card-info">
           <h5>{info.title}</h5>
