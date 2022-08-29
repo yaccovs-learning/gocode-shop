@@ -30,7 +30,7 @@ const ChangeAmount = ({ id }) => {
   useEffect(() => {
     const prd = cartProducts.find((prd) => prd.id === id)
     if (prd) setAmount(prd.amount);
-  }, [cartProducts]);
+  }, []);
 
 
   return (

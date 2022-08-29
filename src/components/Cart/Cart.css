@@ -49,7 +49,16 @@
 .product-cart .price {
   flex: 0.3;
   text-align: center;
+  font-weight: bold;
+  font-size: 1em;
   width: 3rem;
+}
+
+.product-cart .price-unit {
+  flex: 0.2;
+  text-align: center;
+  font-size: 0.6em;
+  width: 2rem;
 }
 .product-cart img {
   /* flex: 0.5 0.5 13px; */
@@ -103,4 +112,13 @@ screen and (max-width: 800px) {
     height: 5rem;
     flex-direction: column;
   }
+}
+
+@media screen and (max-width: 510px) {
+  .cart .change-amount {
+  flex: 0 0 2rem;
+  width: 0.5rem;
+  height: 5rem;
+  flex-direction: column;
+}
 }

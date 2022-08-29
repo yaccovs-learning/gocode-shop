@@ -101,19 +101,20 @@ export const SliderPrice = () => {
   const [lowest, setLowest] = useState(-Infinity);
 
   useEffect(() => {
-    let tempHighest = min;
-    let tempLowest = max;
-    listProducts.forEach((product) => {
-      tempHighest = tempHighest > product.price ? product.price : tempHighest;
-      tempLowest = tempLowest < product.price ? product.price : tempLowest;
-    });
-    setMin(tempHighest);
-    setMax(tempLowest);
+    if (!listProducts ||  listProducts.length===0) return
+    const prices = listProducts.map((product) => product.price);
+    console.log("prices",prices)
+    const tempHighest = Math.max(...prices);
+    const tempLowest = Math.min(...prices);
+    console.log(tempHighest,tempLowest)
+
+    setMin(tempLowest);
+    setMax(tempHighest);
     setHighest(tempHighest);
     setLowest(tempLowest);
     const newMarks = [
-      { value: tempHighest, label: `$${tempHighest}` },
       { value: tempLowest, label: `$${tempLowest}` },
+      { value: tempHighest, label: `$${tempHighest}` },
     ];
     setMarks(newMarks);
     console.log(min, max);
@@ -124,8 +125,8 @@ export const SliderPrice = () => {
     <div className="slider">
       {/* <Slider defaultValue={30} step={10} marks min={10} max={110} /> */}
       <Slider
-        min={highest}
-        max={lowest}
+        min={lowest}
+        max={highest}
         getAriaLabel={() => "Price range"}
         value={[min, max]}
         marks={marks}

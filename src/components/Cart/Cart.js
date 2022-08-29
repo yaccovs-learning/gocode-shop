@@ -37,7 +37,7 @@ const Cart = ({ asView }) => {
           <button onClick={() => deleteFromCart(prd.id)}>x</button>
           <img src={prd.image} alt={prd.description} />
           <span className="title">{prd.title}</span>
-          {asView && <span className="price">${(prd.price).toFixed(2)}</span>}
+          {asView && <span className="price-unit">${(prd.price).toFixed(2)}</span>}
           <ChangeAmount id={prd.id} />
           <span className="price">${(prd.amount * prd.price).toFixed(2)}</span>
         </div>

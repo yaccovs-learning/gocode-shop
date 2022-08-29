@@ -25,11 +25,14 @@ const Product = ({ productId: productIdFromProp, asView }) => {
       ? productIdFromProp
       : Number(productIdFromParams);
   const info = listProducts.find((prd) => prd.id === id);
-
+  let classCard = "product-card";
+  if (asView) {
+    classCard += " as-view"
+  }
   return listProducts.length > 0 ? (
     <Card
       sx={{ minWidth: "8em" }}
-      className="product-card"
+      className={classCard}
       title={info.description}
     >
       <CardActionArea
