@@ -3,46 +3,43 @@ import StoreContext from "../../StoreContext";
 import "./ChangeAmount.css";
 
 const ChangeAmount = ({ id }) => {
-  const {cartProducts, setCartProducts} = useContext(StoreContext);
+  const { cartProducts, setCartProducts } = useContext(StoreContext);
 
   const [amount, setAmount] = useState(
     cartProducts.find((prd) => prd.id === id)?.amount || 0
   );
 
+  const cartProductIndex = cartProducts.findIndex((prd) => prd.id === id);
+
   useEffect(() => {
-    const cartProductIndex = cartProducts.findIndex((prd) => prd.id === id);
+    setAmount(cartProducts.find((prd) => prd.id === id)?.amount || 0);
+  }, [cartProducts]);
+
+  const changeAmount = (change) => {
+    let sum = amount + change;
+    if (sum < 0) sum = 0;
+    setAmount(sum);
     if (cartProductIndex === -1) {
       setCartProducts((prev) => {
         const arr = prev.slice();
-        arr.push({ id, amount });
+        arr.push({ id, amount: sum });
         return arr;
       });
     } else {
       setCartProducts((prev) => {
         const arr = prev.slice();
-        arr[cartProductIndex] = { id, amount };
+        arr[cartProductIndex] = { id, amount: sum };
         return arr;
       });
     }
-  }, [amount]);
-
-
-  useEffect(() => {
-    const prd = cartProducts.find((prd) => prd.id === id)
-    if (prd) setAmount(prd.amount);
-  }, []);
-
+  };
 
   return (
     <div className="change-amount">
       {" "}
-      <button onClick={() => setAmount((prev) => prev + 1)}>+</button>
+      <button onClick={() => changeAmount(1)}>+</button>
       <div>{amount}</div>
-      <button
-        onClick={() => setAmount((prev) => (prev === 0 ? prev : prev - 1))}
-      >
-        -
-      </button>
+      <button onClick={() => changeAmount(-1)}>-</button>
     </div>
   );
 };

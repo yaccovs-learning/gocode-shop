@@ -1,5 +1,6 @@
 .products {
   display: flex;
+  justify-content: center;
   flex-wrap: wrap;
   column-gap: 0.5rem;
   row-gap: 0.5rem;

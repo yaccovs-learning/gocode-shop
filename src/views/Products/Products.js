@@ -33,7 +33,7 @@ const Products = () => {
 
     setListProductsElements(
       listProductsSort.map((item) => (
-        <Product key={item.id} productId={item.id} />
+        <Product key={item._id} productId={item._id} />
       ))
     );
   }, [sortObj, selectCat, listProducts, min, max]);
