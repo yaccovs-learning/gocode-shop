@@ -24,7 +24,7 @@ const TableEditData = ({ fieldsArr }) => {
     }
     change[field.id] = value;
     const response = await axios.put(
-      `http://127.0.0.1:8000/api/products/${listProducts[index]._id}`,
+      `/api/products/${listProducts[index]._id}`,
       change
     );
     const changeProduct = response.data;

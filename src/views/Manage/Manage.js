@@ -74,7 +74,7 @@ const Manage = () => {
     const product = { ...formValuesEnd };
     product.rating = { rate: 0, count: 0 };
     const newProduct = await axios.post(
-      "http://localhost:8000/api/products",
+      "/api/products",
       product
     );
     setListProducts([product, ...listProducts]);

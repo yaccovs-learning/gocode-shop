@@ -22,7 +22,7 @@ function App() {
 
   const getProductsFromApi = async () => {
     try {
-      const response = await axios.get("http://127.0.0.1:8000/api/products");
+      const response = await axios.get("/api/products");
       const products = await response.data;
       setListProducts(products);
     } catch (e) {
