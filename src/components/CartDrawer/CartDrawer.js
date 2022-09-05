@@ -3,13 +3,15 @@ import StoreContext from "../../StoreContext";
 import ChangeAmount from "../ChangeAmount/ChangeAmount";
 import CartSum from "../CartSum";
 
-import "./Cart.css";
+import "./CartDrawer.css";
+import { Drawer } from "@mui/material";
 
-const Cart = ({ asView }) => {
+const CartDrawer = () => {
   const [openCloseCart, setOpenCloseCart] = useState(false);
   const { cartProducts, setCartProducts, listProducts } =
     useContext(StoreContext);
 
+    const toggle = () => setOpenCloseCart(prev=>!prev);
   const [productLines, setProductLines] = useState([]);
 
   const deleteFromCart = (id) => {
@@ -26,44 +28,29 @@ const Cart = ({ asView }) => {
       .filter((prd) => prd.amount > 0)
       .map((prdCrt) => {
         return {
-          ...listProducts.find((prdLst) => prdLst._id === prdCrt.id),
+          ...listProducts.find((prdLst) => prdLst.id === prdCrt.id),
           amount: prdCrt.amount,
         };
       });
 
     setProductLines(
       filterCartProducts.map((prd) => (
-        <div key={prd._id} className="product-cart">
-          <button onClick={() => deleteFromCart(prd._id)}>x</button>
+        <div key={prd.id} className="product-cart">
+          <button onClick={() => deleteFromCart(prd.id)}>x</button>
           <img src={prd.image} alt={prd.description} />
           <span className="title">{prd.title}</span>
           {asView && <span className="price-unit">${(prd.price).toFixed(2)}</span>}
-          <ChangeAmount id={prd._id} />
+          <ChangeAmount id={prd.id} />
           <span className="price">${(prd.amount * prd.price).toFixed(2)}</span>
         </div>
       ))
     );
   }, [cartProducts, listProducts]);
 
-  return asView ? (
-    <div className="cart as-view">{productLines} <CartSum /></div>
-   
-    ) : (
-    <>
-      {openCloseCart && (
-        <>
-          <div className="cart side">{productLines}</div>
-          <CartSum listProducts={listProducts} />
-        </>
-      )}
-      <div
-        className="btn-open-cart"
-        onClick={() => setOpenCloseCart((prev) => !prev)}
-      >
-        🛒
-      </div>
-    </>
-  );
+  return (
+    <Drawer anchor={"left"} open={openCloseCart} onClose={toggle}>
+    </Drawer>
+  )
 };
 
 export default Cart;

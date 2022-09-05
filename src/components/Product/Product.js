@@ -5,6 +5,7 @@ import {
   CardContent,
   CardMedia,
   Rating,
+  useMediaQuery,
 } from "@mui/material";
 import React, { useContext } from "react";
 import { Link, useParams } from "react-router-dom";
@@ -23,12 +24,16 @@ const Product = ({ productId: productIdFromProp, asView }) => {
   const id =
     typeof productIdFromProp !== "undefined"
       ? productIdFromProp
-      : Number(productIdFromParams);
-  const info = listProducts.find((prd) => prd.id === id);
+      : productIdFromParams;
+  const info = listProducts.find((prd) => prd._id === id);
+
+  const min1000px = useMediaQuery("(min-width:1000px)")
   let classCard = "product-card";
   if (asView) {
     classCard += " as-view"
   }
+
+
   return listProducts.length > 0 ? (
     <Card
       sx={{ minWidth: "8em" }}
@@ -38,7 +43,8 @@ const Product = ({ productId: productIdFromProp, asView }) => {
       <CardActionArea
         className="product-card-link"
         component={Link}
-        to={`/product/${info.id}`}
+        sx={{display:"flex", flexDirection:(min1000px?"row":"column")}}
+        to={`/product/${info._id}`}
       >
         <CardMedia component="img" image={info.image} alt={info.title} />
         <CardContent className="product-card-info">
@@ -49,7 +55,7 @@ const Product = ({ productId: productIdFromProp, asView }) => {
         </CardContent>
       </CardActionArea>
       <CardActions className="product-card-actions">
-        <ChangeAmount id={info.id} />
+        <ChangeAmount id={info._id} />
         <Rating
           value={info.rating.rate}
           onChange={(e, value) => {
