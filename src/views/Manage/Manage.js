@@ -1,20 +1,23 @@
 import React, { useContext, useState } from "react";
 import Form from "../../components/Form/Form";
 import StoreContext from "../../StoreContext";
+import axios from "axios";
+import TableEditData from "../../components/TableEditData/TableEditData";
 
 const Manage = () => {
   const [formValues, setFormValues] = useState({});
-  const { categories, listProducts, setListProducts } = useContext(StoreContext);
-  
-  const checkIfAboveZero = (id, value) => { 
+  const { categories, listProducts, setListProducts } =
+    useContext(StoreContext);
+
+  const checkIfAboveZero = (id, value) => {
     if (Number(value) > 0) return true;
     return `${id} must be above 0`;
-  }
+  };
 
-  const checkIfLengthValid = (id, value, min,max) => { 
-    if ((value && value.length <= max && value.length >= min)) return true;
+  const checkIfLengthValid = (id, value, min, max) => {
+    if (value && value.length <= max && value.length >= min) return true;
     return `The ${id} must be between ${min} and ${max} characters long`;
-  }
+  };
 
   const fieldsArr = [
     {
@@ -22,7 +25,11 @@ const Manage = () => {
       label: "Title:",
       placeholder: "title",
       type: "text",
-      checks: [(id,value)=>{return checkIfLengthValid(id,value,3,30)}],
+      checks: [
+        (id, value) => {
+          return checkIfLengthValid(id, value, 3, 30);
+        },
+      ],
       require: true,
     },
     {
@@ -30,7 +37,11 @@ const Manage = () => {
       label: "Description:",
       placeholder: "description",
       type: "text",
-      checks: [(id,value)=>{return checkIfLengthValid(id,value,3,60)}],
+      checks: [
+        (id, value) => {
+          return checkIfLengthValid(id, value, 3, 60);
+        },
+      ],
     },
     {
       id: "price",
@@ -59,27 +70,31 @@ const Manage = () => {
     },
   ];
 
-  const handlerAddProduct = (formValuesEnd) => {
-    const product = {...formValuesEnd};
-    product.id = listProducts.length+1;
-    product.rating = {rate:0,count:0}
-    setListProducts([product, ...listProducts])
-  }
-
-
+  const handlerAddProduct = async (formValuesEnd) => {
+    const product = { ...formValuesEnd };
+    product.rating = { rate: 0, count: 0 };
+    const newProduct = await axios.post(
+      "http://localhost:8000/api/products",
+      product
+    );
+    setListProducts([product, ...listProducts]);
+  };
 
   return (
-    <div>
-      Manage:
-      <Form
-        fieldsArr={fieldsArr}
-        setFormValues={setFormValues}
-        formValues={formValues}
-        submit={{text: "Add Product", action: handlerAddProduct}}
-      >
-        Enter new product details
-      </Form>
-    </div>
+    <>
+      <div>
+        Manage:
+        <Form
+          fieldsArr={fieldsArr}
+          setFormValues={setFormValues}
+          formValues={formValues}
+          submit={{ text: "Add Product", action: handlerAddProduct }}
+        >
+          Enter new product details
+        </Form>
+      </div>
+      <TableEditData fieldsArr={fieldsArr}/>
+    </>
   );
 };
 

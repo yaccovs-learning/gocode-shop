@@ -22,7 +22,7 @@ function App() {
 
   const getProductsFromApi = async () => {
     try {
-      const response = await axios.get("http://127.0.0.1:8000/products");
+      const response = await axios.get("http://127.0.0.1:8000/api/products");
       const products = await response.data;
       setListProducts(products);
     } catch (e) {
@@ -32,6 +32,9 @@ function App() {
       console.log('not connected to server')
     } //
   };
+
+  const changeListProducts = (newList) => {
+    setListProducts(newList)};
 
   const [categories, setCategories] = useState([]);
   useEffect(() => {
@@ -61,6 +64,7 @@ function App() {
         selectCat,
         setSelectCat,
         minMax,
+        changeListProducts
       }}
     >
       <div>
