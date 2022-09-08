@@ -1,11 +1,24 @@
-import React from "react";
+import { Rating } from "@mui/material";
+import {axios} from "../../BaseUrl";
 
-const Stars = ({ rate, count }) => {
-  let starsStr = "⭐".repeat(Math.round(rate));
+import React, { useState } from "react";
+
+const Stars = ({ rate, count, productId }) => {
+  const [rating,setRating] = useState({rate,count})
+  console.log({ rate, count, productId })
   return (
-    <h6>
-      {starsStr} - {count}
-    </h6>
+    <>
+      <Rating
+        value={rating.rate}
+        onChange={async (e, value) => {
+          const newRating = await axios.put(`/api/products/rating/${productId}`, { rate: value });
+          console.log(newRating);
+          setRating(newRating.data);
+          
+        }}
+      />
+      {rating.count}
+    </>
   );
 };
 

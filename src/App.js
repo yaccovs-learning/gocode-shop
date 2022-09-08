@@ -5,6 +5,8 @@ import Header from "./components/Header/Header";
 import Cart from "./components/Cart/Cart";
 import Routing from "./components/Routing/Routing";
 import axios from "axios";
+import {BASE_URL} from "./BaseUrl";
+axios.defaults.baseURL = BASE_URL;
 
 function App() {
   const [listProducts, setListProducts] = useState([]);
@@ -29,12 +31,13 @@ function App() {
       // const response = await fetch("https://bedecked-stone-turret.glitch.me/products");
       // const products = await response.json();
       // setListProducts(products);
-      console.log('not connected to server')
+      console.log("not connected to server", e);
     } //
   };
 
   const changeListProducts = (newList) => {
-    setListProducts(newList)};
+    setListProducts(newList);
+  };
 
   const [categories, setCategories] = useState([]);
   useEffect(() => {
@@ -64,7 +67,7 @@ function App() {
         selectCat,
         setSelectCat,
         minMax,
-        changeListProducts
+        changeListProducts,
       }}
     >
       <div>

@@ -1,8 +1,11 @@
 import React, { useContext, useState } from "react";
 import Form from "../../components/Form/Form";
 import StoreContext from "../../StoreContext";
-import axios from "axios";
 import TableEditData from "../../components/TableEditData/TableEditData";
+import axios from "axios";
+import {BASE_URL} from "../../BaseUrl";
+axios.defaults.baseURL = BASE_URL;
+
 
 const Manage = () => {
   const [formValues, setFormValues] = useState({});
@@ -77,7 +80,7 @@ const Manage = () => {
       "/api/products",
       product
     );
-    setListProducts([product, ...listProducts]);
+    setListProducts([newProduct.data, ...listProducts]);
   };
 
   return (

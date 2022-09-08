@@ -7,6 +7,7 @@ import {
   Rating,
   useMediaQuery,
 } from "@mui/material";
+import axios from "axios";
 import React, { useContext } from "react";
 import { Link, useParams } from "react-router-dom";
 import StoreContext from "../../StoreContext";
@@ -56,18 +57,7 @@ const Product = ({ productId: productIdFromProp, asView }) => {
       </CardActionArea>
       <CardActions className="product-card-actions">
         <ChangeAmount id={info._id} />
-        <Rating
-          value={info.rating.rate}
-          onChange={(e, value) => {
-            const prevRate = info.rating.rate;
-            const prevCount = info.rating.count;
-            const newCount = ++info.rating.count;
-            info.rating.rate =
-              value / newCount + prevRate * (prevCount / newCount);
-            console.log(value);
-          }}
-        />{" "}
-        {info.rating.count}
+        <Stars rate={info.rating.rate} count={info.rating.count} productId={info._id} />
       </CardActions>
     </Card>
   ) : (

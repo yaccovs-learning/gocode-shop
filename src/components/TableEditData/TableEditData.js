@@ -8,6 +8,10 @@ import TableRow from "@mui/material/TableRow";
 import Paper from "@mui/material/Paper";
 import StoreContext from "../../StoreContext";
 import axios from "axios";
+import {BASE_URL} from "../../BaseUrl";
+import CellEdit from "./CellEdit";
+axios.defaults.baseURL = BASE_URL;
+
 
 const TableEditData = ({ fieldsArr }) => {
   const { listProducts, setListProducts, changeListProducts } = useContext(StoreContext);
@@ -36,41 +40,16 @@ const TableEditData = ({ fieldsArr }) => {
 
 
   const formElements = (row,indexInProducts) => {
-    return fieldsArr.map((field, index) => (
-      <TableCell key={field.id}>
-        {field.type === "select" ? (
-          <select
-            value={row[field.id] || "default"}
-            onChange={(e) => {
-              return changeData(indexInProducts, field, e.target.value);
-            }}
-          >
-            <option key="default" value="">
-              {" ==== "}
-            </option>
-            {field.options.map((opt, index) => (
-              <option value={opt} key={index}>
-                {opt}
-              </option>
-            ))}
-          </select>
-        ) : (
-          <input
-            type={field.type}
-            value={row[field.id] || ""}
-            placeholder={field.placeholder}
-            onChange={(e) => {
-              return changeData(indexInProducts, field, e.target.value);
-            }}
-          ></input>
-        )}
-      </TableCell>
-    ));
+    return fieldsArr.map((field, index) => {
+      const changeHandler = ()=>{}
+    return (
+        <CellEdit key={field.id} row={row} field={field} value={row[field.id]} fieldsArr={fieldsArr} changeHandler={(value)=>changeData(indexInProducts,field,value)} />
+    )});
   };
 
   return (
     <div>
-      <TableContainer component={Paper}>
+      <TableContainer sx={{ width: "100%" }} component={Paper}>
         <Table sx={{ minWidth: 650 }} aria-label="simple table">
           <TableHead>
             <TableRow>
